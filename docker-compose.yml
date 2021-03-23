@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  payara-test:
+    build:
+      args:
+        - http_proxy=${HTTP_PROXY}
+        - https_proxy=${HTTPS_PROXY}
+      context: .
+      dockerfile: Dockerfile
+    image: payara-test:latest
+    container_name: payara-test
+    ports:
+      - "7009:7009"
+      - "7048:7048"
+      - "7080:7080"
+      - "7081:7081"
