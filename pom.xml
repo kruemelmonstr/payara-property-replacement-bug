@@ -11,15 +11,15 @@
   <packaging>war</packaging>
 
   <properties>
-    <maven.compiler.source>8</maven.compiler.source>
-    <maven.compiler.target>8</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>fish.payara.extras</groupId>
       <artifactId>payara-embedded-all</artifactId>
-      <version>4.1.2.181</version>
+      <version>5.2021.4</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>

@@ -1,17 +1,16 @@
 # Payara for OTD DP on Docker with zulu jdk
-FROM azul/zulu-openjdk:8u282 as payara-test
+FROM azul/zulu-openjdk:11.0.9 as payara-test
 
 # Maintainer
 LABEL maintainer="Fabian Schoeneborn <fabian.schoeneborn@sulzer.de"
 
 # Set environment variables and default password for user 'admin'
-ENV PAYARA_HOME=/payara41 \
-    PATH=$PATH:/payara41/bin
+ENV PAYARA_HOME=/payara5 \
+    PATH=$PATH:/payara5/bin
 
 ARG PASSWORD=admin
-ARG JDK_VERSION=8u282
-ARG PAYARA_VERSION=4.1.2.181
-ARG DOMAIN_HOME=/payara41/glassfish/domains/test
+ARG PAYARA_VERSION=5.2021.4
+ARG DOMAIN_HOME=/payara5/glassfish/domains/test
 
 
 USER root
@@ -52,8 +51,8 @@ RUN echo " --- clean up  ---" && \
     apt-get autoclean -y && \
     rm -rf /var/lib/apt/lists/*
 RUN groupadd -r test && useradd --no-log-init -r -g test test && \
-    chown -R test:test /payara41 && \
-    usermod -d /payara41 test
+    chown -R test:test /payara5 && \
+    usermod -d /payara5 test
 
 ##squashing image
 FROM scratch
@@ -61,6 +60,6 @@ COPY --from=payara-test / /
 # Ports being exposed
 EXPOSE 7048 7080 7201 7009
 USER test
-WORKDIR /payara41
+WORKDIR /payara5
 # Start asadmin console and the domain
-ENTRYPOINT ["/payara41/bin/asadmin", "start-domain", "-v", "--debug", "test"]
+ENTRYPOINT ["/payara5/bin/asadmin", "start-domain", "-v", "--debug", "test"]
